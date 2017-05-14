@@ -1,0 +1,16 @@
+{% load static %}
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
+<title> {% block title %} Title {% endblock %} </title>
+<div id='main_page'>
+    <div id='nav_bar'>
+        <h2>Profile</h2> <h2>Connect</h2> <h2>Reviews</h2> <h2>Reporting</h2>
+    </div>
+
+    <div id='side_bar'>
+        {% block sidebar %} Sidebar {% endblock %}
+    </div>
+
+    <div id='content'>
+        {% block content %} Content {% endblock %}
+    </div>
+</div>

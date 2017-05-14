@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
+{% block title %} {{ name }}Course Page {% endblock %}
+{% block sidebar %}
+    <h1>Enrolled Students</h1> <br>
+    {% for student in students %}
+        <div class='list_item' onClick=redirectTo('{% url 'student' student.id %}')>
+            <p class='student_name'>{{ student.name }}</p> <br>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block content %}
+    <h1>{{ name }}</h1> <br>
+    <h2>Section {{ section }}</h2> <h2>{{ instructor }}</h2> <br>
+    <h2>Discussion Board</h2> <br>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
+{% block title %} Profile {% endblock %}
+{% block sidebar %}
+    <img src='{{ profile_image }}'/> <br>
+    <p>{{ name }}</p> <br>
+    <p>{{ student_year }}</p> <br>
+    <p>{{ active_score }}% Active</p> <br>
+    <br>
+    <p>{{ bio }}</p> <br>
+{% endblock %}
+{% block content %}
+    <div id='profile_bar'>
+        <h1>Current Courses</h1> <h1>Future Courses</h1> <h1>Past Courses</h1> <h1>Friends</h1>
+    </div>
+    {% for course in current_courses %}
+        <div class='list_item' onClick=redirectTo('{% url 'courses' course.cid %}')>
+            <p class='course_name'>{{ course.name }}</p>
+            <p class='course_instructor'>{{ course.instructor }}</p>
+            <p class='course_section'>{{ course.section }}</p>
+            <br>
+        </div>
+    {% endfor %}
+    {% for course in future_courses %}
+        <p class='course_name'>{{ course.name }}</p>
+        <br>
+    {% endfor %}
+    {% for course in past_courses %}
+        <p class='course_name'>{{ course.name }}</p>
+        <p class='course_instructor'>{{ course.instructor }}</p>
+        <p class='course_section'>{{ course.section }}</p>
+        <br>
+    {% endfor %}
+    {% for friend in friends %}
+        <div class='list_item' onClick=redirectTo('{% url 'students' friend.friend.id %}')>
+            <p class='student_name'>{{ friend.friend.name }}</p>
+            <br>
+        </div>
+    {% endfor %}
+{% endblock %}
