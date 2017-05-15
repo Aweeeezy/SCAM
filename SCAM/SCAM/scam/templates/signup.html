@@ -1,14 +1,13 @@
 {% load static %}
 <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
-<div id='background_image'></div>
 <div id='signup_login'>
-    <h1>Login to SCAM</h1>
+    <h1>Sign Up for SCAM</h1>
     <form action="" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Submit" />
     </form>
     <small class="text--center">
-        <em><a href="{% url 'signup' %}">need an account?</a></em>
+        <em><a href="{% url 'landing_page' %}">already have an account?</a></em>
     </small>
 </div>

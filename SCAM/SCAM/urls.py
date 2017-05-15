@@ -18,11 +18,15 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from SCAM.scam.views import LandingView, StudentView, CourseView, PastCourseView, FutureCourseView, ReviewView
+from django.contrib.auth import views as auth_views
+from SCAM.scam.views import LandingView, StudentView, CourseView, PastCourseView, FutureCourseView, ReviewView, SignUpView, ProfileRedirectView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', LandingView.as_view(), name='landing_page'),
+    url(r'^accounts/profile/', ProfileRedirectView.as_view()),
+    url(r'^$', auth_views.login, {'template_name': 'landing.html'},
+        name='landing_page'),
+    url(r'^signup/', SignUpView.as_view(), name='signup'),
     url(r'^students/(?P<pk>[-\w]+)/$', StudentView.as_view(), name='students'),
     url(r'^courses/(?P<pk>[-\w]+)/$', CourseView.as_view(), name='courses'),
     url(r'^students/(?P<pk>[-\w]+)/future_courses/$',

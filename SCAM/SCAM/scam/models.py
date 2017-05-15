@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime
+from django.contrib.auth.models import User
 import os
 
 
@@ -13,6 +14,7 @@ class Student(models.Model):
     sid = models.CharField(max_length=9, blank=False, null=False)
     # salt = ... (are these necessary?)
     # hash = ... (are these necessary?)
+    user = models.OneToOneField(User)
     name = models.CharField(max_length=70, blank=False, null=False)
     bio = models.CharField(max_length=500, blank=True, null=True)
     # Not sure if/how this will work -- got any better ideas?
