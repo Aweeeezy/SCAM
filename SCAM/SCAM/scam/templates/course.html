@@ -4,9 +4,9 @@
 {% block title %} {{ name }}Course Page {% endblock %}
 {% block sidebar %}
     <h1>Enrolled Students</h1> <br>
-    {% for student in students %}
-        <div class='list_item' onClick=redirectTo('{% url 'student' student.id %}')>
-            <p class='student_name'>{{ student.name }}</p> <br>
+    {% for s in students %}
+        <div class='list_item' onClick=redirectTo('{% url 'students' s.id %}')>
+            <p class='student_name'>{{ s.student.name }}</p> <br>
         </div>
     {% endfor %}
 {% endblock %}

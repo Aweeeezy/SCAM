@@ -3,39 +3,25 @@
 <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
 {% block title %} Profile {% endblock %}
 {% block sidebar %}
-    <img src='{{ profile_image }}'/> <br>
-    <p>{{ name }}</p> <br>
-    <p>{{ student_year }}</p> <br>
-    <p>{{ active_score }}% Active</p> <br>
+<img class='profile_center' src='{{ profile_image.url }}'/> <br>
+    <p class='profile_center'>{{ student.name }}</p> <br>
+    <p class='profile_center'>{{ student.student_year }}</p> <br>
+    <p class='profile_center'>{{ active_score }}% Active</p> <br>
     <br>
     <p>{{ bio }}</p> <br>
 {% endblock %}
 {% block content %}
     <div id='profile_bar'>
-        <h1>Current Courses</h1> <h1>Future Courses</h1> <h1>Past Courses</h1> <h1>Friends</h1>
+        <div class='list_item' onClick=redirectTo('{% url 'currentcourses' student.id %}')>
+            <p class='course_listing header'>Current Courses</p>
+        </div>
+        <div class='list_item' onClick=redirectTo('{% url 'futurecourses' student.id %}')>
+            <p class='course_listing header'>Future Courses</p>
+        </div>
+        <div class='list_item' onClick=redirectTo('{% url 'pastcourses' student.id %}')>
+            <p class='course_listing header'>Past Courses</p>
+        </div>
+            <p class='course_listing header'>Friends</p>
     </div>
-    {% for course in current_courses %}
-        <div class='list_item' onClick=redirectTo('{% url 'courses' course.cid %}')>
-            <p class='course_name'>{{ course.name }}</p>
-            <p class='course_instructor'>{{ course.instructor }}</p>
-            <p class='course_section'>{{ course.section }}</p>
-            <br>
-        </div>
-    {% endfor %}
-    {% for course in future_courses %}
-        <p class='course_name'>{{ course.name }}</p>
-        <br>
-    {% endfor %}
-    {% for course in past_courses %}
-        <p class='course_name'>{{ course.name }}</p>
-        <p class='course_instructor'>{{ course.instructor }}</p>
-        <p class='course_section'>{{ course.section }}</p>
-        <br>
-    {% endfor %}
-    {% for friend in friends %}
-        <div class='list_item' onClick=redirectTo('{% url 'students' friend.friend.id %}')>
-            <p class='student_name'>{{ friend.friend.name }}</p>
-            <br>
-        </div>
-    {% endfor %}
+    {% block courses %} Course Listing {% endblock %}
 {% endblock %}

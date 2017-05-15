@@ -13,15 +13,23 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+import debug_toolbar
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from SCAM.scam.views import LandingView, StudentView, CourseView, ReviewView
+from SCAM.scam.views import LandingView, StudentView, CourseView, PastCourseView, FutureCourseView, ReviewView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', LandingView.as_view(), name='landing_page'),
     url(r'^students/(?P<pk>[-\w]+)/$', StudentView.as_view(), name='students'),
     url(r'^courses/(?P<pk>[-\w]+)/$', CourseView.as_view(), name='courses'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^students/(?P<pk>[-\w]+)/future_courses/$',
+      FutureCourseView.as_view(), name='futurecourses'),
+    url(r'^students/(?P<pk>[-\w]+)/past_courses/$', PastCourseView.as_view(),
+      name='pastcourses'),
+    url(r'^students/(?P<pk>[-\w]+)/current_courses/$', StudentView.as_view(),
+      name='currentcourses'),
+    url(r'^__debug__/', include(debug_toolbar.urls)),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

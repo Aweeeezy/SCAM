@@ -1,9 +1,17 @@
 {% load static %}
 <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
+<script>
+    function redirectTo(url) {
+        window.location.href = url;
+    }
+</script>
 <title> {% block title %} Title {% endblock %} </title>
 <div id='main_page'>
     <div id='nav_bar'>
-        <h2>Profile</h2> <h2>Connect</h2> <h2>Reviews</h2> <h2>Reporting</h2>
+        <p class='nav_bar header'>Profile</p>
+        <p class='nav_bar header'>Connect</p>
+        <p class='nav_bar header'>Reviews</p>
+        <p class='nav_bar header'>Reporting</p>
     </div>
 
     <div id='side_bar'>

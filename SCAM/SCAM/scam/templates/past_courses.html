@@ -1,0 +1,17 @@
+{% extends "student.html" %}
+{% load static %}
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
+{% block courses %}
+    <div id='course_listing'>
+        <div class='full_row'>
+            <p class='class_name header'>Course</p>
+            <p class='instructor_name header'>Instructor</p>
+        </div>
+        {% for course in past_courses %}
+            <p class='class_name item'> {{ course.course.name }} </p>
+            <p class='instructor_name item'> {{ course.instructor.name }} </p>
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}
+
