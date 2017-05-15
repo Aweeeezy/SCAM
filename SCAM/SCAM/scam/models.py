@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.base_user import AbstractBaseUser
 from datetime import datetime
+from django.contrib.auth.models import UserManager
 import os
 
 
@@ -9,8 +11,8 @@ def get_image_path(instance, filename):
     return os.path.join('photos', str(instance.id), filename)
 
 
-class Student(models.Model):
-    sid = models.CharField(max_length=9, blank=False, null=False)
+class Student(AbstractBaseUser):
+    sid = models.CharField(max_length=9, blank=False, null=False, unique=True)
     # salt = ... (are these necessary?)
     # hash = ... (are these necessary?)
     name = models.CharField(max_length=70, blank=False, null=False)
@@ -27,8 +29,20 @@ class Student(models.Model):
     days_joined = models.IntegerField(blank=True, null=True, default=0)
     days_active = models.IntegerField(blank=True, null=True, default=0)
 
+    objects = UserManager()
+
+    USERNAME_FIELD = 'sid'
+
+    REQUIRED_FIELDS = ['name']
+
     def __str__(self):
         return self.sid
+
+    def get_full_name(self):
+        return self.name
+
+    def get_short_name(self):
+        return self.name
 
 
 class Course(models.Model):

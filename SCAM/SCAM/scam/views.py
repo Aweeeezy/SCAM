@@ -1,10 +1,22 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import TemplateView, DetailView, ListView, FormView
+from django.contrib.auth.forms import UserCreationForm
 from SCAM.scam.models import Student, Course, Instructor, ActiveCourse, Review, PastCourse, CurrentCourse, FutureCourse, Friend
-
+from django.core.urlresolvers import reverse
+from django.http.response import HttpResponseRedirect
 
 class LandingView(TemplateView):
   template_name = 'landing.html'
+
+
+class SignUpView(FormView):
+  form_class = UserCreationForm
+  template_name = 'signup.html'
+
+  def get_success_url(self):
+    user_name = self.get_form().data.get('username')
+    student = Student.objects.filter(name=user_name).first()
+    return HttpResponseRedirect(reverse('student', args=[student.sid]))
 
 
 class StudentView(DetailView):
