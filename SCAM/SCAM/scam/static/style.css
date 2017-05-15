@@ -59,7 +59,13 @@
 img {
   padding: 20px;
   width: 90%;
+  left: 50%;
+  position: relative;
+  transform: translate(-50%);
 }
+
+#side_bar { font-weight: bold; }
+#bio { text-align: left; }
 
 #profile_bar {
   background-color: rgba(229,168,35, 1);

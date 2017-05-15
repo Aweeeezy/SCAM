@@ -3,7 +3,7 @@
 <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
 {% block title %} {{ name }}Course Page {% endblock %}
 {% block sidebar %}
-    <h1>Enrolled Students</h1> <br>
+    <h1 class='profile_center'>Enrolled Students</h1> <br>
     {% for student in students %}
         {% if student.id %}
             <div class='list_item' onClick=redirectTo('{% url 'students' student.pk %}')>
@@ -13,7 +13,10 @@
     {% endfor %}
 {% endblock %}
 {% block content %}
-    <h1>{{ name }}</h1> <br>
-    <h2>Section {{ section }}</h2> <h2>{{ instructor }}</h2> <br>
-    <h2>Discussion Board</h2> <br>
+    <h1 class='profile_center'>{{ course_info.name }}</h1> <br>
+    <h2 class='profile_center'>Section {{ course_info.section }}</h2>
+    <div onClick=redirectTo('{% url 'instructors' course_info.instructor.id %}')>
+        <h2 class='profile_center'>{{ course_info.instructor }}</h2> <br>
+    </div>
+    <h2 style='padding-left:50px'>Discussion Board</h2> <br>
 {% endblock %}
