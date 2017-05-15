@@ -9,7 +9,9 @@
         </div>
         {% for course in past_courses %}
             <p class='class_name itemnofloat'> {{ course.course.name }} </p>
-            <p class='instructor_name itemnofloat'> {{ course.instructor.name }} </p>
+            <div class='instructor_name itemnofloat' onClick=redirectTo('{% url 'instructors' course.instructor.id %}')>
+                <p> {{ course.instructor.name }} </p>
+            </div>
             <br>
         {% endfor %}
     </div>

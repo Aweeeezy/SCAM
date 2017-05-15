@@ -65,7 +65,7 @@ img {
 }
 
 #side_bar { font-weight: bold; }
-#bio { text-align: left; }
+#bio { text-align: left; padding: 20px; }
 
 #profile_bar {
   background-color: rgba(229,168,35, 1);

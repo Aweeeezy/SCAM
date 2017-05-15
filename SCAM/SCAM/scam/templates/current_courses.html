@@ -11,7 +11,9 @@
             <div class='list_item' onClick=redirectTo('{% url 'courses' course.course.cid %}')>
                 <p class='class_name item'> {{ course.course.name }} </p>
             </div>
-            <p class='instructor_name item'> {{ course.course.instructor.name }} </p>
+            <div onClick=redirectTo('{% url 'instructors' course.course.instructor.id %}')>
+                <p class='instructor_name item'> {{ course.course.instructor.name }} </p>
+            </div>
             <p class='section_number item'> {{ course.course.section }} </p>
             <br>
         {% endfor %}
