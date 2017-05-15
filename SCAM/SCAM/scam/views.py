@@ -6,10 +6,14 @@ from django.contrib.auth.forms import UserCreationForm
 from SCAM.scam.forms import CreateUserForm
 from django.contrib.auth.models import User
 from SCAM.scam.models import Student, Course, Instructor, ActiveCourse, Review, PastCourse, CurrentCourse, FutureCourse, Friend
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 
 
 class ProfileRedirectView(View):
-
+  
+  @method_decorator(login_required)
   def get(self, request, *args, **kwargs):
     student = Student.objects.filter(sid=request.user.username).first()
     return HttpResponseRedirect(reverse('students', args=[student.id]))
@@ -27,11 +31,19 @@ class SignUpView(FormView):
 class LandingView(TemplateView):
   template_name = 'landing.html'
 
-
 class StudentView(DetailView):
   model = Student
   template_name = 'current_courses.html'
 
+  @method_decorator(login_required)
+  def get(self, request, *args, **kwargs):
+    # uncomment this if you dont want to allow students to see other students profile page
+    '''
+    if request.user.student != self.object:
+      return HttpResponseRedirect(<maybe access denied page?>)
+    '''
+    return super(StudentView, self).get(request, *args, **kwargs)
+    
   def get_context_data(self, **kwargs):
     context = super(StudentView, self).get_context_data(**kwargs)
     try:
@@ -41,49 +53,74 @@ class StudentView(DetailView):
     context['current_courses'] = CurrentCourse.objects.filter(student=self.object)
     return context
 
-
 class PastCourseView(DetailView):
   model = Student
   template_name = 'past_courses.html'
 
+  @method_decorator(login_required)
+  def get(self, request, *args, **kwargs):
+    return super(PastCourseView, self).get(request, *args, **kwargs)
+
   def get_context_data(self, **kwargs):
     context = super(PastCourseView, self).get_context_data(**kwargs)
+    try:
+      context['active_score'] = self.object.days_active/self.object.days_joined*100
+    except ZeroDivisionError as e:
+      context['active_score'] = 100
     context['past_courses'] = PastCourse.objects.filter(student=self.object)
     return context
-
 
 class FutureCourseView(DetailView):
   model = Student
   template_name = 'future_courses.html'
 
+  @method_decorator(login_required)
+  def get(self, request, *args, **kwargs):
+    return super(FutureCourseView, self).get(request, *args, **kwargs)
+
   def get_context_data(self, **kwargs):
     context = super(FutureCourseView, self).get_context_data(**kwargs)
+    try:
+      context['active_score'] = self.object.days_active/self.object.days_joined*100
+    except ZeroDivisionError as e:
+      context['active_score'] = 100
     context['future_courses'] = FutureCourse.objects.filter(student=self.object)
     return context
-
 
 class FriendView(ListView):
   model = Friend
   template_name = 'friends.html'
+
+  @method_decorator(login_required)
+  def get(self, request, *args, **kwargs):
+    return super(FriendView, self).get(request, *args, **kwargs)
 
   def get_context_data(self, **kwargs):
     context = super(FriendView, self).get_context_data(**kwargs)
     context['friends'] = Friend.objects.filter(user=self.object)
     return context
 
-
 class CourseView(DetailView):
   model = ActiveCourse
   template_name = 'course.html'
 
+  @method_decorator(login_required)
+  def get(self, request, *args, **kwargs):
+    return super(CourseView, self).get(request, *args, **kwargs)
+
   def get_context_data(self, **kwargs):
     context = super(CourseView, self).get_context_data(**kwargs)
-    context['students'] = CurrentCourse.objects.filter(course=self.object)
+    courses = CurrentCourse.objects.filter(course=self.object)
+    context['students'] = [course.student for course in courses]
+    context['student'] = self.request.user.student
     return context
-
 
 class ConnectView(ListView):
   template_name = 'connect.html'
+
+  @method_decorator(login_required)
+  def get(self, request, *args, **kwargs):
+    return super(ConnectView, self).get(request, *args, **kwargs)
 
   def get_context_data(self, **kwargs):
     context = super(ConnectView, self).get_context_data(**kwargs)
@@ -93,3 +130,7 @@ class ConnectView(ListView):
 class ReviewView(ListView):
   model = Review
   template_name = 'review.html'
+
+  @method_decorator(login_required)
+  def get(self, request, *args, **kwargs):
+    return super(ReviewView, self).get(request, *args, **kwargs)

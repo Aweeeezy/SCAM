@@ -3,10 +3,11 @@
 <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
 {% block courses %}
     <div id='course_listing'>
-        <p class='class_name header'>Course</p>
-        <br>
+        <div class='full_row'>
+            <p class='class_name header'>Course</p>
+        </div>
         {% for course in future_courses %}
-            <p class='class_name item'> {{ course.course.name }} </p>
+            <p class='class_name itemnofloat'> {{ course.course.name }} </p>
             <br>
         {% endfor %}
     </div>

@@ -28,12 +28,12 @@ urlpatterns = [
         name='landing_page'),
     url(r'^signup/', SignUpView.as_view(), name='signup'),
     url(r'^students/(?P<pk>[-\w]+)/$', StudentView.as_view(), name='students'),
-    url(r'^courses/(?P<pk>[-\w]+)/$', CourseView.as_view(), name='courses'),
     url(r'^students/(?P<pk>[-\w]+)/future_courses/$',
       FutureCourseView.as_view(), name='futurecourses'),
     url(r'^students/(?P<pk>[-\w]+)/past_courses/$', PastCourseView.as_view(),
       name='pastcourses'),
     url(r'^students/(?P<pk>[-\w]+)/current_courses/$', StudentView.as_view(),
       name='currentcourses'),
+    url(r'^courses/(?P<pk>[-\w]+)/$', CourseView.as_view(), name='courses'),
     url(r'^__debug__/', include(debug_toolbar.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
