@@ -6,6 +6,7 @@
         <p class='class_name header'>Course</p>
         <p class='instructor_name header'>Instructor</p>
         <p class='section_number header'>Section</p>
+        <div id='odd'>
         {% for course in current_courses %}
             <div class='list_item' onClick=redirectTo('{% url 'courses' course.course.cid %}')>
                 <p class='class_name item'> {{ course.course.name }} </p>
@@ -14,5 +15,6 @@
             <p class='section_number item'> {{ course.course.section }} </p>
             <br>
         {% endfor %}
+        </div>
     </div>
 {% endblock %}

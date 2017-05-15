@@ -27,6 +27,10 @@ class PastCourseView(DetailView):
 
   def get_context_data(self, **kwargs):
     context = super(PastCourseView, self).get_context_data(**kwargs)
+    try:
+      context['active_score'] = self.object.days_active/self.object.days_joined*100
+    except ZeroDivisionError as e:
+      context['active_score'] = 100
     context['past_courses'] = PastCourse.objects.filter(student=self.object)
     print context['past_courses'].first().instructor
     return context
@@ -38,6 +42,10 @@ class FutureCourseView(DetailView):
 
   def get_context_data(self, **kwargs):
     context = super(FutureCourseView, self).get_context_data(**kwargs)
+    try:
+      context['active_score'] = self.object.days_active/self.object.days_joined*100
+    except ZeroDivisionError as e:
+      context['active_score'] = 100
     context['future_courses'] = FutureCourse.objects.filter(student=self.object)
     return context
 
@@ -57,7 +65,7 @@ class CourseView(DetailView):
 
   def get_context_data(self, **kwargs):
     context = super(CourseView, self).get_context_data(**kwargs)
-    context['students'] = CurrentCourse.objects.filter(course=self.object)
+    context['courses'] = CurrentCourse.objects.filter(course=self.object)
     return context
 
 

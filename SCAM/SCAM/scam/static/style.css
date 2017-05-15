@@ -29,15 +29,22 @@
 }
 
 #nav_bar {
-  background-color: blue;
+  background-color: rgba(253,185,48, 0.9);
+  border-style: outset;
   height: 7%;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 #side_bar {
-  background-color: green;
+  background-color: rgba(0,85,168, 0.8);
+  border-style: outset;
   height: 100%;
+  position: relative;
+  top: -1%;
   width: 20%;
+  z-index: 1;
 }
 
 #content {
@@ -49,14 +56,27 @@
 }
 
 /* Profile Template */
+img {
+  padding: 20px;
+  width: 90%;
+}
+
 #profile_bar {
-  border-radius: 70px;
+  background-color: rgba(229,168,35, 1);
+  border-style: outset;
   display: inline;
   float: left;
+  height: 7%;
   text-align: center;
-  top: 0%;
+  position: relative;
+  top: -1%;
   width: 100%;
   white-space: nowrap;
+  z-index: 0;
+}
+
+#profile_bar p {
+  position: relative;
 }
 
 .profile_center {
@@ -70,14 +90,15 @@
 }
 
 .course_listing {
-  width: 20%;
+  width: 27%;
 }
 
 .header { float: left; font-size: 30px; font-weight: bold; padding-left: 50px;}
 .item { float: left; font-size: 20px; text-align: left; position: relative; padding-left: 50px; }
+.itemnofloat { display:inline-block;font-size: 20px; text-align: left; position: relative; padding-left: 50px; }
 
-.list_item:nth-child(even) {
-    background-color: #000000;
+#odd:nth-child(odd) {
+    background-color: rgba(155, 155, 155, 0.3);
 }
 
 .class_name {

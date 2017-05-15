@@ -8,8 +8,8 @@
             <p class='instructor_name header'>Instructor</p>
         </div>
         {% for course in past_courses %}
-            <p class='class_name item'> {{ course.course.name }} </p>
-            <p class='instructor_name item'> {{ course.instructor.name }} </p>
+            <p class='class_name itemnofloat'> {{ course.course.name }} </p>
+            <p class='instructor_name itemnofloat'> {{ course.instructor.name }} </p>
             <br>
         {% endfor %}
     </div>
