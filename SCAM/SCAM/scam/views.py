@@ -65,7 +65,11 @@ class CourseView(DetailView):
 
   def get_context_data(self, **kwargs):
     context = super(CourseView, self).get_context_data(**kwargs)
-    context['courses'] = CurrentCourse.objects.filter(course=self.object)
+    courses = CurrentCourse.objects.filter(course=self.object)
+    context['students'] = [course.student for course in courses]
+    print kwargs, self.request.user
+    for student in context['students']:
+      print '??????????', student.id, student.pk
     return context
 
 

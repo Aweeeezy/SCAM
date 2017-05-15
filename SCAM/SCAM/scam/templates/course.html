@@ -5,9 +5,11 @@
 {% block sidebar %}
     <h1>Enrolled Students</h1> <br>
     {% for student in students %}
-        <div class='list_item' onClick=redirectTo('{% url 'students' student.id %}')>
-            <p class='student_name'>{{ student.student.name }}</p> <br>
-        </div>
+        {% if student.id %}
+            <div class='list_item' onClick=redirectTo('{% url 'students' student.pk %}')>
+                <p class='student_name'>{{ student.name }}</p> <br>
+            </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}
 {% block content %}
