@@ -95,7 +95,7 @@ class FutureCourse(models.Model):
 
 
 class Friend(models.Model):
-    user = models.ForeignKey(Student, blank=False, null=False,
+    friendA = models.ForeignKey(Student, blank=False, null=False,
             related_name='friendA')
-    friend = models.ForeignKey(Student, blank=False, null=False,
+    friendB = models.ForeignKey(Student, blank=False, null=False,
             related_name='friendB')

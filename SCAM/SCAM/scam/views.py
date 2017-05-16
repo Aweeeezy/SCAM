@@ -10,13 +10,13 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
-
 class ProfileRedirectView(View):
 
   @method_decorator(login_required)
   def get(self, request, *args, **kwargs):
     student = Student.objects.filter(sid=request.user.username).first()
     return HttpResponseRedirect(reverse('students', args=[student.id]))
+
 
 class SignUpView(FormView):
   form_class = CreateUserForm
@@ -51,6 +51,7 @@ class StudentView(DetailView):
     except ZeroDivisionError as e:
       context['active_score'] = 100
     context['current_courses'] = CurrentCourse.objects.filter(student=self.object)
+    context['friend'] = Friend.objects.filter(friendA=self.object).first()
     return context
 
 class PastCourseView(DetailView):
@@ -88,7 +89,7 @@ class FutureCourseView(DetailView):
     return context
 
 
-class FriendView(ListView):
+class FriendView(DetailView):
   model = Friend
   template_name = 'friends.html'
 
@@ -98,7 +99,8 @@ class FriendView(ListView):
 
   def get_context_data(self, **kwargs):
     context = super(FriendView, self).get_context_data(**kwargs)
-    context['friends'] = Friend.objects.filter(user=self.object)
+    print 'self.object', self.object
+    context['friends'] = Friend.objects.filter(friendA=self.object)
     return context
 
 
@@ -108,7 +110,6 @@ class InstructorView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(InstructorView, self).get_context_data(**kwargs)
-        print context['instructor']
         return context
 
 
@@ -124,7 +125,6 @@ class CourseView(DetailView):
     context = super(CourseView, self).get_context_data(**kwargs)
     courses = CurrentCourse.objects.filter(course=self.object)
     context['course_info'] = courses.first().course
-    print context['course_info'].name
     context['students'] = [course.student for course in courses]
     context['student'] = self.request.user.student
     return context

@@ -13,7 +13,7 @@
     {% endfor %}
 {% endblock %}
 {% block content %}
-    <h1 class='profile_center'>{{ course_info.name }}</h1> <br>
+    <h1 class='profile_center'>{{ course_info.name }}</h1>
     <h2 class='profile_center'>Section {{ course_info.section }}</h2>
     <div onClick=redirectTo('{% url 'instructors' course_info.instructor.id %}')>
         <h2 class='profile_center'>{{ course_info.instructor }}</h2> <br>

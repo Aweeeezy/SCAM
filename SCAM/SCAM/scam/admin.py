@@ -44,4 +44,4 @@ class FutureCourseAdmin(admin.ModelAdmin):
 
 @admin.register(Friend)
 class FriendAdmin(admin.ModelAdmin):
-  list_display = ['user', 'friend']
+  list_display = ['friendA', 'friendB']

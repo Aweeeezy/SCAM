@@ -20,7 +20,9 @@
         <div class='list_item' onClick=redirectTo('{% url 'pastcourses' student.id %}')>
             <p class='course_listing header'>Past Courses</p>
         </div>
+        <div class='list_item' onClick=redirectTo('{% url 'friends' friend.id %}')>
             <p class='course_listing header'>Friends</p>
+        </div>
     </div>
     {% block courses %} Course Listing {% endblock %}
 {% endblock %}

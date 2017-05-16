@@ -8,7 +8,7 @@
 <title> {% block title %} Title {% endblock %} </title>
 <div id='main_page'>
     <div id='nav_bar'>
-        <div class='list_item' onClick=redirectTo('{% url 'students' student.id %}')>
+        <div class='list_item' onClick=redirectTo('{% url 'students' request.user.student.id %}')>
             <p class='nav_bar header'>Profile</p>
         </div>
         <p class='nav_bar header'>Connect</p>

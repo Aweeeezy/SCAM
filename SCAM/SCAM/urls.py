@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from SCAM.scam.views import LandingView, StudentView, CourseView, PastCourseView, FutureCourseView, ReviewView, SignUpView, ProfileRedirectView, InstructorView
+from SCAM.scam.views import LandingView, StudentView, CourseView, PastCourseView, FutureCourseView, ReviewView, SignUpView, ProfileRedirectView, InstructorView, FriendView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -34,6 +34,7 @@ urlpatterns = [
       name='pastcourses'),
     url(r'^students/(?P<pk>[-\w]+)/current_courses/$', StudentView.as_view(),
       name='currentcourses'),
+    url(r'^students/(?P<pk>[-\w]+)/friends/$', FriendView.as_view(), name='friends'),
     url(r'^courses/(?P<pk>[-\w]+)/$', CourseView.as_view(), name='courses'),
     url(r'^instructors/(?P<pk>[-\w]+)/$', InstructorView.as_view(),
         name='instructors'),
