@@ -21,7 +21,9 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from SCAM.scam.views import (LandingView, StudentView, CourseView,
                              PastCourseView, FutureCourseView, ReviewView,
-                             SignUpView, ProfileRedirectView, FriendView)
+                             SignUpView, ProfileRedirectView, FriendView,
+                             InstructorView)
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -36,8 +38,11 @@ urlpatterns = [
       name='pastcourses'),
     url(r'^students/(?P<pk>[-\w]+)/current_courses/$', StudentView.as_view(),
       name='currentcourses'),
+    url(r'^students/(?P<pk>[-\w]+)/friends/$', FriendView.as_view(), name='friends'),
     url(r'^courses/(?P<pk>[-\w]+)/$', CourseView.as_view(), name='courses'),
     url(r'^students/(?P<pk>[-\w]+)/friends/$', FriendView.as_view(),
         name='friends'),
+    url(r'^instructors/(?P<pk>[-\w]+)/$', InstructorView.as_view(),
+        name='instructors'),
     url(r'^__debug__/', include(debug_toolbar.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

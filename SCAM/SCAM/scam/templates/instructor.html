@@ -1,0 +1,14 @@
+{% load static %}
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
+<h1 class='profile_center'>{{ instructor.name }}</h1> <br>
+{% if instructor.rating < 0 %}
+    <h1 class='profile_center'>Rating: 'n/a'</h1>
+{% endif %}
+{% if instructor.rating >= 0 %}
+    <h1 class='profile_center'>Rating: {{ instructor.rating }}</h1>
+{% endif %}
+<h1 class='profile_center'>Years of experience at SJSU: {{ instructor.years_exp_sjsu }}</h1>
+<h1 class='profile_center'>Years of experience total: {{ instructor.years_exp_total }}</h1>
+{% if instructor.profile_image %}
+~         <img style='width: 15%' class='profile_center' src='../../../{{ instructor.profile_image.url }}'/> <br>
+{% endif %}

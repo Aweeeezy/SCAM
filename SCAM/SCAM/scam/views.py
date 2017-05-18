@@ -10,13 +10,13 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 
-
 class ProfileRedirectView(View):
-  
+
   @method_decorator(login_required)
   def get(self, request, *args, **kwargs):
     student = Student.objects.filter(sid=request.user.username).first()
     return HttpResponseRedirect(reverse('students', args=[student.id]))
+
 
 class SignUpView(FormView):
   form_class = CreateUserForm
@@ -43,14 +43,15 @@ class StudentView(DetailView):
       return HttpResponseRedirect(<maybe access denied page?>)
     '''
     return super(StudentView, self).get(request, *args, **kwargs)
-    
+
   def get_context_data(self, **kwargs):
     context = super(StudentView, self).get_context_data(**kwargs)
     try:
-      context['active_score'] = self.object.days_active/self.object.days_joined*100
+      context['active_score'] = float(self.object.days_active)/float(self.object.days_joined)*float(100)
     except ZeroDivisionError as e:
       context['active_score'] = 100
     context['current_courses'] = CurrentCourse.objects.filter(student=self.object)
+    context['friend'] = Friend.objects.filter(friendA=self.object).first()
     return context
 
 class PastCourseView(DetailView):
@@ -64,7 +65,7 @@ class PastCourseView(DetailView):
   def get_context_data(self, **kwargs):
     context = super(PastCourseView, self).get_context_data(**kwargs)
     try:
-      context['active_score'] = self.object.days_active/self.object.days_joined*100
+      context['active_score'] = float(self.object.days_active)/float(self.object.days_joined)*float(100)
     except ZeroDivisionError as e:
       context['active_score'] = 100
     context['past_courses'] = PastCourse.objects.filter(student=self.object)
@@ -81,7 +82,7 @@ class FutureCourseView(DetailView):
   def get_context_data(self, **kwargs):
     context = super(FutureCourseView, self).get_context_data(**kwargs)
     try:
-      context['active_score'] = self.object.days_active/self.object.days_joined*100
+      context['active_score'] = float(self.object.days_active)/float(self.object.days_joined)*float(100)
     except ZeroDivisionError as e:
       context['active_score'] = 100
     context['future_courses'] = FutureCourse.objects.filter(student=self.object)
@@ -100,6 +101,16 @@ class FriendView(DetailView):
     context['friends'] = self.object.friends.all()
     return context
 
+
+class InstructorView(DetailView):
+    model = Instructor
+    template_name = 'instructor.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InstructorView, self).get_context_data(**kwargs)
+        return context
+
+
 class CourseView(DetailView):
   model = ActiveCourse
   template_name = 'course.html'
@@ -111,6 +122,7 @@ class CourseView(DetailView):
   def get_context_data(self, **kwargs):
     context = super(CourseView, self).get_context_data(**kwargs)
     courses = CurrentCourse.objects.filter(course=self.object)
+    context['course_info'] = courses.first().course
     context['students'] = [course.student for course in courses]
     context['student'] = self.request.user.student
     return context
