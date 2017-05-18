@@ -124,3 +124,11 @@ img {
 .student_name {
   text-align: center;
 }
+
+/* Connect Page */
+#connect_form {
+}
+
+#connect_content  {
+    padding-left: 50px;
+}

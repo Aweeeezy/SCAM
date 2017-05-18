@@ -11,9 +11,15 @@
         <div class='list_item' onClick=redirectTo('{% url 'students' request.user.student.id %}')>
             <p class='nav_bar header'>Profile</p>
         </div>
-        <p class='nav_bar header'>Connect</p>
-        <p class='nav_bar header'>Reviews</p>
-        <p class='nav_bar header'>Reporting</p>
+        <div class='list_item' onClick=redirectTo('{% url 'connect' request.user.student.id %}')>
+            <p class='nav_bar header'>Connect</p>
+        </div>
+        <div class='list_item' onClick=redirectTo('{% url 'reviews' %}')>
+            <p class='nav_bar header'>Reviews</p>
+        </div>
+        <div class='list_item' onClick=redirectTo('{% url 'reporting' %}')>
+            <p class='nav_bar header'>Reporting</p>
+        </div>
     </div>
 
     <div id='side_bar'>

@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from SCAM.scam.views import LandingView, StudentView, CourseView, PastCourseView, FutureCourseView, ReviewView, SignUpView, ProfileRedirectView, InstructorView, FriendView
+from SCAM.scam.views import LandingView, StudentView, CourseView, PastCourseView, FutureCourseView, ReviewView, SignUpView, ProfileRedirectView, InstructorView, FriendView, ConnectView, ReportView, ConnectResultsView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -38,5 +38,10 @@ urlpatterns = [
     url(r'^courses/(?P<pk>[-\w]+)/$', CourseView.as_view(), name='courses'),
     url(r'^instructors/(?P<pk>[-\w]+)/$', InstructorView.as_view(),
         name='instructors'),
+    url(r'^connect/(?P<pk>[-\w]+)/$', ConnectView.as_view(), name='connect'),
+    url(r'^connect/(?P<pk>[-\w]+)/results/$', ConnectResultsView.as_view(),
+        name='connectresults'),
+    url(r'^reviews/$', ReviewView.as_view(), name='reviews'),
+    url(r'^reporting/$', ReportView.as_view(), name='reporting'),
     url(r'^__debug__/', include(debug_toolbar.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

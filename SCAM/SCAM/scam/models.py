@@ -12,12 +12,9 @@ def get_image_path(instance, filename):
 
 class Student(models.Model):
     sid = models.CharField(max_length=9, blank=False, null=False)
-    # salt = ... (are these necessary?)
-    # hash = ... (are these necessary?)
     user = models.OneToOneField(User)
     name = models.CharField(max_length=70, blank=False, null=False)
     bio = models.CharField(max_length=500, blank=True, null=True)
-    # Not sure if/how this will work -- got any better ideas?
     profile_image = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     student_years = (('Freshman', 'Freshman'), ('Sophomore', 'Sophomore'),
             ('Junior', 'Junior'), ('Senior', 'Senior'),
@@ -101,3 +98,8 @@ class Review(models.Model):
             null=False)
 
 
+class Connect(models.Model):
+    your_options= (('c', 'your current courses'), ('f', 'your future courses'))
+    other_options = (('p', 'has taken'), ('c', 'is taking'), ('f', 'will take'))
+    you = models.CharField(max_length=20, choices=your_options)
+    other_student = models.CharField(max_length=9, choices=other_options)
