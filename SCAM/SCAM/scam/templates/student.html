@@ -6,21 +6,23 @@
     {% if student.profile_image %}
         <img class='profile_center' src='../../../{{ student.profile_image.url }}'/> <br>
     {% endif %}
-    <p class='profile_center'>{{ student.name }}</p> <br>
-    <p class='profile_center'>{{ student.student_year }}</p> <br>
-    <p class='profile_center'>{{ active_score }}% Active</p> <br>
-    <br>
-    <p id='bio' class='profile_center'>{{ student.bio }}</p> <br>
+    <p class='profile_center'>{{ student.name }}</p>
+    <p class='profile_center'>{{ student.student_year }}</p>
+    <p class='profile_center'>{{ active_score }}% Active</p>
+    <p id='bio' class='profile_center'>{{ student.bio }}</p>
 {% endblock %}
 {% block content %}
     <div id='profile_bar'>
+        <div class='list_item' onClick=redirectTo('{% url 'currentcourses' student.id %}')>
+            <p class='course_listing header'>Current Courses</p>
+        </div>
         <div class='list_item' onClick=redirectTo('{% url 'futurecourses' student.id %}')>
             <p class='course_listing header'>Future Courses</p>
         </div>
         <div class='list_item' onClick=redirectTo('{% url 'pastcourses' student.id %}')>
             <p class='course_listing header'>Past Courses</p>
         </div>
-        <div class='list_item' onClick=redirectTo('{% url 'friends' friend.id %}')>
+        <div class='list_item' onClick=redirectTo('{% url 'friends' student.id %}')>
             <p class='course_listing header'>Friends</p>
         </div>
     </div>

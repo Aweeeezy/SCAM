@@ -68,16 +68,6 @@ class ActiveCourse(models.Model):
         return self.name + " " + str(self.cid)
 
 
-class Review(models.Model):
-    student = models.ForeignKey(Student, blank=False, null=False)
-    course = models.ForeignKey(Course, blank=False, null=False)
-    instructor = models.ForeignKey(Instructor, blank=False, null=False)
-    title = models.CharField(max_length=70, blank=False, null=False)
-    body = models.CharField(max_length=500, blank=False, null=False)
-    rating = models.DecimalField(max_digits=2, decimal_places= 1, blank=False,
-            null=False)
-
-
 class PastCourse(models.Model):
     student = models.ForeignKey(Student, blank=False, null=False)
     course = models.ForeignKey(Course, blank=False, null=False)
@@ -99,3 +89,15 @@ class Friend(models.Model):
             related_name='friendA')
     friendB = models.ForeignKey(Student, blank=False, null=False,
             related_name='friendB')
+
+
+class Review(models.Model):
+    student = models.ForeignKey(Student, blank=False, null=False)
+    course = models.ForeignKey(PastCourse, blank=False, null=False)
+    instructor = models.ForeignKey(Instructor, blank=False, null=False)
+    title = models.CharField(max_length=70, blank=False, null=False)
+    body = models.CharField(max_length=500, blank=False, null=False)
+    rating = models.DecimalField(max_digits=2, decimal_places= 1, blank=False,
+            null=False)
+
+
