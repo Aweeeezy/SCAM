@@ -87,8 +87,8 @@ class FutureCourseView(DetailView):
     context['future_courses'] = FutureCourse.objects.filter(student=self.object)
     return context
 
-class FriendView(ListView):
-  model = Friend
+class FriendView(DetailView):
+  model = Student
   template_name = 'friends.html'
 
   @method_decorator(login_required)
@@ -97,7 +97,7 @@ class FriendView(ListView):
 
   def get_context_data(self, **kwargs):
     context = super(FriendView, self).get_context_data(**kwargs)
-    context['friends'] = Friend.objects.filter(user=self.object)
+    context['friends'] = self.object.friends.all()
     return context
 
 class CourseView(DetailView):

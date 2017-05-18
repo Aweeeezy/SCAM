@@ -28,6 +28,7 @@ class Student(models.Model):
     student_year = models.CharField(max_length=17, choices=student_years, blank=False, null=False)
     days_joined = models.IntegerField(blank=True, null=True, default=0)
     days_active = models.IntegerField(blank=True, null=True, default=0)
+    friends = models.ManyToManyField('self', blank=True, null=True)
 
     def __str__(self):
         return self.sid
